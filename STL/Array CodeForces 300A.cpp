@@ -1,60 +1,60 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 void solve(){
     int n;
     cin >> n;
-    deque<int> s(n);
+    vector<int> s(n);
+    vector<int> negative;
+    vector<int> positive;
+    vector<int> zero;
+
     for (int i = 0; i < n; i++) {
         cin >> s[i];
-    }
-    sort(s.begin(), s.end());
-    deque<int> negative;
-    deque<int> positive;
-    deque<int> zero;
-    int product_negative=1;
-    int product_positive=1;
-    for (int i=0;i<n;i++)
-    {
-        if (s[i] <0) {
+        if (s[i] < 0) {
             negative.push_back(s[i]);
-            product_negative *=s[i];
-            }
-        else if (s[i]==0) zero.push_back(s[i]);
-        else{
+        } else if (s[i] > 0) {
             positive.push_back(s[i]);
-            product_positive *=s[i];
-        } 
+        } else {
+            zero.push_back(s[i]);
+        }
     }
-    if (product_negative>0){
-        zero.push_back(s.front());
-        s.pop_front();
-    }
-    if (positive.empty()) {
-        positive.push_back(negative.back());
+
+    vector<int> set1;
+    set1.push_back(negative.back());
+    negative.pop_back();
+
+    vector<int> set2;
+    if (!positive.empty()) {
+       
+        set2.push_back(positive.back());
+        positive.pop_back();
+        
+    } else {
+        set2.push_back(negative.back());
         negative.pop_back();
-        positive.push_back(negative.back());
+        set2.push_back(negative.back());
         negative.pop_back();
     }
-    cout << negative.size();
-    for (int i = 0; i < negative.size(); i++) {
-        cout << " " << negative[i];
-    }
-    cout << endl;
 
-    cout << positive.size();
-    for (int i = 0; i < positive.size(); i++) {
-        cout << " " << positive[i];
-    }
-    cout << endl;
+    
+    vector<int> set3;
+    for (int x : zero) set3.push_back(x);
+    for (int x : negative) set3.push_back(x);
+    for (int x : positive) set3.push_back(x);
 
-    cout << zero.size();
-    for (int i = 0; i < zero.size(); i++) {
-        cout << " " << zero[i];
-    }
-    cout << endl;
+    cout << set1.size();
+    for (int x : set1) cout << " " << x;
+    cout << "\n";
 
+    cout << set2.size();
+    for (int x : set2) cout << " " << x;
+    cout << "\n";
+
+    cout << set3.size();
+    for (int x : set3) cout << " " << x;
+    cout << "\n";
 }
+
 int main(){
     solve();
     return 0;
