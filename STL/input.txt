@@ -1,2 +1,7 @@
-5
-1 2 3 4 5
+3
+12
+APPAPPPAPPPP
+3
+AAP
+3
+PPA
