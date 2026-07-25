@@ -1,34 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
-#include <iostream>
-void solve()
-{
-int no_groups;
-cin >>no_groups;
-stack<int> index_angry;
-int no_students_per_group;
-for (int i=0;i<no_groups;i++){
-cin >>no_students_per_group;
-char status[no_students_per_group];
-for (int i=0;i<no_students_per_group;i++)
-{
-cin >>status[i];
-if (status[i]=='A')
-{
-    index_angry.push(i);
+
+void solve() {
+    int no_groups;
+    cin >> no_groups;
+    for (int g = 0; g < no_groups; g++) { 
+        int no_students_per_group;
+        cin >> no_students_per_group;
+        stack<int> index_angry; 
+        string status; 
+        cin >> status;
+        for (int i = 0; i < no_students_per_group; i++) {
+            if (status[i] == 'A') {
+                index_angry.push(i);
+            }
+        }
+        if (index_angry.empty()) {
+            cout << 0 << endl;
+            continue;
+        }
+        
+        int max_moment = 0;
+         int last_angry = index_angry.top();
+        max_moment = max(max_moment, (no_students_per_group - 1) - last_angry);
+        index_angry.pop();
+        while (!index_angry.empty()) {
+            int current_angry = index_angry.top();
+            max_moment = max(max_moment, last_angry - current_angry - 1);
+            last_angry = current_angry;
+            index_angry.pop();
+        }
+        
+        cout << max_moment << endl;
+    }
 }
-}
-if(index_angry.top()==no_students_per_group-1)
-{
-    cout<< 0<<endl;
-}else {
-    int last_angry=index_angry.top();
-    int last_momemt=no_students_per_group-1-last_angry ;
-    cout<<last_momemt<<endl;
-}
-}
-}
- int main(){
+
+int main() {
     solve();
     return 0;
- }
+}
